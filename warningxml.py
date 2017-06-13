@@ -15,6 +15,7 @@ def parse(url):
     # head
     timestr = xml['Report']['Head']['ReportDateTime']
     report_time = dt.strptime(timestr[:-6], "%Y-%m-%dT%H:%M:%S")
+    report_time_str = report_time.strftime("%Y%m%d%H%M%S")
     comment = xml['Report']['Head']['Headline']['Text']
 
     print xml['Report']['Head']['Title'], report_time
@@ -31,8 +32,8 @@ def parse(url):
         prefdata[code] = {
             'name': pref['Area']['Name'],
             'status': warning_status(warnings),
-            'warnings': pref_warnings,
-            'report_time': report_time,
+            'warnings': warnings,
+            'report_time': report_time_str,
             'comment': comment
         }
 
@@ -43,7 +44,7 @@ def parse(url):
     # 量的予想時系列（市町村等）
     # 複雑....
 
-    return prefdata, citydata
+    return prefdata, citydata, report_time_str
 
 
 def parse_city_warnings(city_warnings):
