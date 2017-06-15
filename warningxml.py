@@ -67,11 +67,13 @@ def warnings_tolist(item):
 
     if isinstance(item['Kind'], list):
         for kind in item['Kind']:
-            warnings.append(kind['Name'])
+            if kind['Status'] != u'解除':
+                warnings.append(kind['Name'])
 
     else:
         if item['Kind']['Status'] != u'発表警報・注意報はなし':
-            warnings.append(item['Kind']['Name'])
+            if item['Kind']['Status'] != u'解除':
+                warnings.append(item['Kind']['Name'])
 
     return warnings
 
