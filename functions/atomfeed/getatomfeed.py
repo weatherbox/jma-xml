@@ -40,6 +40,11 @@ def init():
     warning.processall(xmlpref.values(), init=True)
 
 
+# called by aws lambda
+def handler(event, context):
+    fetch()
+
+
 if __name__ == '__main__':
     import sys
     if len(sys.argv) > 1:

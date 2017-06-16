@@ -1,0 +1,5 @@
+{
+  "name": "atomfeed",
+  "runtime": "python2.7",
+  "handler": "getatomfeed.handler"
+}
