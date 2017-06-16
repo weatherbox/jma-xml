@@ -15,11 +15,10 @@ def fetch():
 
     for entry in atom.entries:
         if entry.title == u'気象警報・注意報（Ｈ２７）':
-            updated_utc = dt.strptime(entry.updated[:-1], "%Y-%m-%dT%H:%M:%S")
-            print updated_utc
+            updated_utc = dt.strptime(entry.updated[:-4], "%Y-%m-%dT%H:%M")
 
             if updated_utc > last_update_utc:
-                print entry.title, entry.content[0]['value'], entry.updated
+                print entry.updated, entry.title, entry.content[0]['value']
                 xmllist.append(entry.links[0]['href'])
 
     if len(xmllist):

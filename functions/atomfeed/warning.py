@@ -67,6 +67,8 @@ def upload(type, jsondata):
             'ACL': 'public-read',
             'ContentEncoding': 'gzip'})
 
+    print 'upload', jsonfile
+
 
 if __name__ == '__main__':
     import sys
