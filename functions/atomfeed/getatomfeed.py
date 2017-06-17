@@ -30,7 +30,7 @@ def fetch():
         last_update_utc = warning.processall(reversed(xmllist))
 
 
-def init():
+def initall():
     atom = feedparser.parse(url_long)
     xmlpref = {}
 
@@ -52,7 +52,7 @@ def handler(event, context):
 if __name__ == '__main__':
     import sys
     if len(sys.argv) > 1:
-        init()
+        initall()
     else:
         fetch()
 
