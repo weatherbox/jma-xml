@@ -12,8 +12,8 @@ s3_client = boto3.client('s3')
 
 def processall(urllist, init=False):
     if init:
-        prefjson = {}
-        cityjson = {}
+        prefjson = { 'preflist': {} }
+        cityjson = { 'citylist': {} }
     else:
         prefjson = download('pref')
         cityjson = download('city')
@@ -32,11 +32,11 @@ def process(url, prefjson, cityjson):
     prefdata, citydata, report_time = warningxml.parse(url)
 
     for prefcode in prefdata.keys():
-        prefjson[prefcode] = prefdata[prefcode]
+        prefjson['preflist'][prefcode] = prefdata[prefcode]
     prefjson['lastupdate'] = report_time
 
     for citycode in citydata.keys():
-        cityjson[citycode] = citydata[citycode]
+        cityjson['citylist'][citycode] = citydata[citycode]
     cityjson['lastupdate'] = report_time
 
     return prefjson, cityjson
