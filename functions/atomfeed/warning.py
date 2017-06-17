@@ -24,8 +24,8 @@ def processall(urllist, init=False):
     upload('pref', prefjson)
     upload('city', cityjson)
 
-    last_update_utc = dt.strptime(prefjson['lastupdate'], "%Y%m%d%H%M%S")
-    return last_update_utc
+    last_update = dt.strptime(prefjson['lastupdate'], "%Y%m%d%H%M%S")
+    return last_update
 
 
 def process(url, prefjson, cityjson):
@@ -44,8 +44,8 @@ def process(url, prefjson, cityjson):
 
 def check():
     prefdata = download('pref')
-    last_update_utc = dt.strptime(prefdata['lastupdate'], "%Y%m%d%H%M%S")
-    return last_update_utc
+    last_update = dt.strptime(prefdata['lastupdate'], "%Y%m%d%H%M%S")
+    return last_update
 
 
 def download(type):

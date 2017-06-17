@@ -1,33 +1,34 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime as dt
+import datetime
 import feedparser
 
 import warning
 
-last_update_utc = None
+last_update = None
 
 url = 'http://www.data.jma.go.jp/developer/xml/feed/extra.xml'
 url_long = 'http://www.data.jma.go.jp/developer/xml/feed/extra_l.xml'
 
 def fetch():
-    global last_update_utc
-    if last_update_utc is None:
-        last_update_utc = warning.check()
-    print last_update_utc
+    global last_update
+    if last_update is None:
+        last_update = warning.check()
+    print last_update
 
     atom = feedparser.parse(url)
     xmllist = []
 
     for entry in atom.entries:
         if entry.title == u'気象警報・注意報（Ｈ２７）':
-            updated_utc = dt.strptime(entry.updated[:-4], "%Y-%m-%dT%H:%M")
+            updated = dt.strptime(entry.updated[:-4], "%Y-%m-%dT%H:%M") + datetime.timedelta(hours=9)
 
-            if updated_utc > last_update_utc:
+            if updated > last_update:
                 print entry.updated, entry.title, entry.content[0]['value']
                 xmllist.append(entry.links[0]['href'])
 
     if len(xmllist):
-        last_update_utc = warning.processall(reversed(xmllist))
+        last_update = warning.processall(reversed(xmllist))
 
 
 def initall():
