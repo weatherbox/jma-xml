@@ -24,6 +24,9 @@ def processall(urllist, init=False):
     upload('pref', prefjson)
     upload('city', cityjson)
 
+    last_update_utc = dt.strptime(prefjson['lastupdate'], "%Y%m%d%H%M%S")
+    return last_update_utc
+
 
 def process(url, prefjson, cityjson):
     prefdata, citydata, report_time = warningxml.parse(url)
@@ -41,8 +44,7 @@ def process(url, prefjson, cityjson):
 
 def check():
     prefdata = download('pref')
-    last_update = dt.strptime(prefdata['lastupdate'], "%Y%m%d%H%M%S")
-    last_update_utc = last_update - datetime.timedelta(hours=9)
+    last_update_utc = dt.strptime(prefdata['lastupdate'], "%Y%m%d%H%M%S")
     return last_update_utc
 
 
