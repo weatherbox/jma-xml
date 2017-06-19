@@ -82,9 +82,9 @@ def warning_status(warnings):
     # emergency | warning | advisory | none
     status = 'none'
     if len(warnings):
-        if len([w for w in warnings if w[:-4] == u'特別警報']):
+        if len([w for w in warnings if w[-4:] == u'特別警報']):
             status = 'emergency'
-        elif len([w for w in warnings if w[:-2] == u'警報']):
+        elif len([w for w in warnings if w[-2:] == u'警報']):
             status = 'warning'
         else:
             status = 'advisory'
