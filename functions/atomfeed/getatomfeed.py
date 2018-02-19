@@ -20,7 +20,7 @@ def fetch():
     xmllist = []
 
     for entry in atom.entries:
-        if entry.title == u'気象警報・注意報（Ｈ２７）':
+        if 'title' in entry and entry.title == u'気象警報・注意報（Ｈ２７）':
             updated = dt.strptime(entry.updated[:-4], "%Y-%m-%dT%H:%M") + datetime.timedelta(hours=9)
 
             if updated > last_update:
