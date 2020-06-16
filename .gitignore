@@ -1,0 +1,5 @@
+*.pyc
+v1/functions/*/*/*
+v1/*.json
+v2/*/node_modules/
+v2/*/package-lock.json

@@ -1,0 +1,18 @@
+{
+  "name": "jma-xml-dispatch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dispatch.js",
+  "dependencies": {
+    "@google-cloud/datastore": "^2.0.0",
+    "@google-cloud/pubsub": "^0.22.1",
+    "request": "^2.88.0",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
