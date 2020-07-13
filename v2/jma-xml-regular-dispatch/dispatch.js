@@ -9,6 +9,7 @@ const pubsub = new PubSub({ projectId });
 const request = require('request');
 const xml2js = require('xml2js');
 const atomFeed = 'http://www.data.jma.go.jp/developer/xml/feed/regular.xml';
+const atomFeedLong = 'http://www.data.jma.go.jp/developer/xml/feed/regular_l.xml';
 
 update();
 exports.handler = (event, context) => {
@@ -26,7 +27,7 @@ function update() {
       const lastId = last.lastId;
       console.log('start', lastId);
 
-      checkUpdated(lastId, function(updatedLastId) {
+      checkUpdated(atomFeed, lastId, function(updatedLastId) {
         if (lastId == updatedLastId){
           console.log('not updated');
           return;
@@ -43,8 +44,8 @@ function update() {
     });
 }
 
-function checkUpdated(lastId, done) { 
-  request(atomFeed, (err, res, body) => {
+function checkUpdated(url, lastId, done) { 
+  request(url, (err, res, body) => {
     var parser = new xml2js.Parser();
     parser.parseString(body, (err, feed) => {
       let count = 0;
@@ -58,9 +59,17 @@ function checkUpdated(lastId, done) {
         dispatch(id, title, xml);
         count++;
       }
-    
       console.log('updated ' + count + ' xmls');
-      done(feed.feed.entry[0].id[0]);
+      const newLastId = feed.feed.entry[0].id[0];
+
+      if (count == feed.feed.entry.length) {
+        checkUpdated(atomFeedLong, lastId, function() {
+          done(newLastId);
+        });
+
+      } else {
+        done(newLastId);
+      }
     });
   });
 }
